@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0d9f8c21bfad499a9f54ac2885fcd954" Name="Diagram1">
+        <EntityTypeShape EntityType="chimDBModel.MaterialTypes" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="chimDBModel.Partners" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="chimDBModel.PartnerServices" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="chimDBModel.Services" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="chimDBModel.ServiceTypes" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="chimDBModel.Пользователи" Width="1.5" PointX="8" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="chimDBModel.Роли" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="chimDBModel.FK__PartnerSe__Partn__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="chimDBModel.FK__PartnerSe__Servi__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="chimDBModel.FK__Services__Servic__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="chimDBModel.FK__Пользоват__IdRol__5070F446" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

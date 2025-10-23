@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="chimDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="MaterialTypes">
+    <Key>
+      <PropertyRef Name="MaterialTypeID" />
+    </Key>
+    <Property Name="MaterialTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Тип_материала" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Процент_перерасхода_материала" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Partners">
+    <Key>
+      <PropertyRef Name="PartnerID" />
+    </Key>
+    <Property Name="PartnerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Тип_партнера" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Наименование_партнера" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Руководитель" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Электронная_почта_партнера" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Телефон_партнера" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Юридический_адрес_партнера" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ИНН" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Рейтинг" Type="Int32" />
+    <NavigationProperty Name="PartnerServices" Relationship="Self.FK__PartnerSe__Partn__412EB0B6" FromRole="Partners" ToRole="PartnerServices" />
+  </EntityType>
+  <EntityType Name="PartnerServices">
+    <Key>
+      <PropertyRef Name="PartnerServiceID" />
+    </Key>
+    <Property Name="PartnerServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceID" Type="Int32" Nullable="false" />
+    <Property Name="PartnerID" Type="Int32" Nullable="false" />
+    <Property Name="Количество_услуг" Type="Int32" Nullable="false" />
+    <Property Name="Дата_выполнения" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Partners" Relationship="Self.FK__PartnerSe__Partn__412EB0B6" FromRole="PartnerServices" ToRole="Partners" />
+    <NavigationProperty Name="Services" Relationship="Self.FK__PartnerSe__Servi__403A8C7D" FromRole="PartnerServices" ToRole="Services" />
+  </EntityType>
+  <EntityType Name="Services">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceTypeID" Type="Int32" Nullable="false" />
+    <Property Name="Наименование_услуги" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Код_услуги" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Минимальная_стоимость_для_партнера" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <NavigationProperty Name="PartnerServices" Relationship="Self.FK__PartnerSe__Servi__403A8C7D" FromRole="Services" ToRole="PartnerServices" />
+    <NavigationProperty Name="ServiceTypes" Relationship="Self.FK__Services__Servic__3B75D760" FromRole="Services" ToRole="ServiceTypes" />
+  </EntityType>
+  <EntityType Name="ServiceTypes">
+    <Key>
+      <PropertyRef Name="ServiceTypeID" />
+    </Key>
+    <Property Name="ServiceTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Тип_услуги" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Коэффициент_сложности_услуги" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Services" Relationship="Self.FK__Services__Servic__3B75D760" FromRole="ServiceTypes" ToRole="Services" />
+  </EntityType>
+  <EntityType Name="Пользователи">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdRole" Type="Int32" Nullable="false" />
+    <Property Name="Логин" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Пароль" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Роли" Relationship="Self.FK__Пользоват__IdRol__5070F446" FromRole="Пользователи" ToRole="Роли" />
+  </EntityType>
+  <EntityType Name="Роли">
+    <Key>
+      <PropertyRef Name="IdRole" />
+    </Key>
+    <Property Name="IdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Наименование" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Описание" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Пользователи" Relationship="Self.FK__Пользоват__IdRol__5070F446" FromRole="Роли" ToRole="Пользователи" />
+  </EntityType>
+  <Association Name="FK__PartnerSe__Partn__412EB0B6">
+    <End Role="Partners" Type="Self.Partners" Multiplicity="1" />
+    <End Role="PartnerServices" Type="Self.PartnerServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Partners">
+        <PropertyRef Name="PartnerID" />
+      </Principal>
+      <Dependent Role="PartnerServices">
+        <PropertyRef Name="PartnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PartnerSe__Servi__403A8C7D">
+    <End Role="Services" Type="Self.Services" Multiplicity="1" />
+    <End Role="PartnerServices" Type="Self.PartnerServices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Services">
+        <PropertyRef Name="ServiceID" />
+      </Principal>
+      <Dependent Role="PartnerServices">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Services__Servic__3B75D760">
+    <End Role="ServiceTypes" Type="Self.ServiceTypes" Multiplicity="1" />
+    <End Role="Services" Type="Self.Services" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceTypes">
+        <PropertyRef Name="ServiceTypeID" />
+      </Principal>
+      <Dependent Role="Services">
+        <PropertyRef Name="ServiceTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Пользоват__IdRol__5070F446">
+    <End Role="Роли" Type="Self.Роли" Multiplicity="1" />
+    <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Роли">
+        <PropertyRef Name="IdRole" />
+      </Principal>
+      <Dependent Role="Пользователи">
+        <PropertyRef Name="IdRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="chimDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="MaterialTypes" EntityType="Self.MaterialTypes" />
+    <EntitySet Name="Partners" EntityType="Self.Partners" />
+    <EntitySet Name="PartnerServices" EntityType="Self.PartnerServices" />
+    <EntitySet Name="Services" EntityType="Self.Services" />
+    <EntitySet Name="ServiceTypes" EntityType="Self.ServiceTypes" />
+    <EntitySet Name="Пользователи" EntityType="Self.Пользователи" />
+    <EntitySet Name="Роли" EntityType="Self.Роли" />
+    <AssociationSet Name="FK__PartnerSe__Partn__412EB0B6" Association="Self.FK__PartnerSe__Partn__412EB0B6">
+      <End Role="Partners" EntitySet="Partners" />
+      <End Role="PartnerServices" EntitySet="PartnerServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PartnerSe__Servi__403A8C7D" Association="Self.FK__PartnerSe__Servi__403A8C7D">
+      <End Role="Services" EntitySet="Services" />
+      <End Role="PartnerServices" EntitySet="PartnerServices" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Services__Servic__3B75D760" Association="Self.FK__Services__Servic__3B75D760">
+      <End Role="ServiceTypes" EntitySet="ServiceTypes" />
+      <End Role="Services" EntitySet="Services" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Пользоват__IdRol__5070F446" Association="Self.FK__Пользоват__IdRol__5070F446">
+      <End Role="Роли" EntitySet="Роли" />
+      <End Role="Пользователи" EntitySet="Пользователи" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
